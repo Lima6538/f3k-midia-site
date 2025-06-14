@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F3K Mídia - Potencializando Suas Vendas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutrals & Deep Teal -->
+    <!-- Application Structure Plan: A single-page, narrative-driven SPA. The structure flows from identifying the user's problem (stagnation), introducing F3K Mídia as the solution, detailing the services through an interactive accordion, visualizing the promised result with a dynamic chart, and ending with a clear call-to-action. This journey-based structure is more engaging than a static page, guiding the user logically from pain point to resolution, which is ideal for converting prospects based on the persuasive nature of the source report. -->
+    <!-- Visualization & Content Choices: 
+        - Hero Section (Inform): Large typography for immediate impact.
+        - Problem/Solution (Inform): Clear, concise text blocks to build a narrative.
+        - Core Services (Organize/Inform): An interactive accordion (HTML/JS) is used instead of a static list. Goal: Allow users to explore services at their own pace without being overwhelmed. Justification: This interaction encourages engagement and focuses attention on one value proposition at a time.
+        - Growth Visualization (Compare/Wow): A Chart.js line chart. Goal: To make the abstract promise of "sales growth" tangible and exciting. Interaction: A button triggers a JS function to animate the chart from a "stagnant" line to a "growth" trajectory. Justification: This visual metaphor is more powerful than text alone. Library: Chart.js.
+        - Process Diagram (Organize): A simple, clean flowchart built with HTML/Tailwind. Goal: To add credibility by showing a structured approach. Justification: Demystifies the consulting process.
+        - CTA (Action): Prominent buttons and clear contact info.
+        - All elements use HTML/Tailwind or Canvas, ensuring no SVG or Mermaid JS is used. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 40vh;
+        }
+        @media (min-width: 768px) {
+            .chart-container { height: 400px; }
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-gray-800">
+
+    <header class="bg-white/80 backdrop-blur-lg sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-teal-700">F3K Mídia</h1>
+            <div>
+                <a href="#services" class="text-gray-600 hover:text-teal-700 mx-3 font-medium">Nossos Serviços</a>
+                <a href="#growth" class="text-gray-600 hover:text-teal-700 mx-3 font-medium">Resultados</a>
+                <a href="#contact" class="bg-teal-600 text-white font-bold py-2 px-5 rounded-full hover:bg-teal-700 transition-colors">Contato</a>
+            </div>
+        </nav>
+    </header>
+
+    <main>
+        <section id="hero" class="py-20 md:py-32 bg-white">
+            <div class="container mx-auto px-6 text-center">
+                <h2 class="text-4xl md:text-6xl font-black text-gray-900 leading-tight mb-4">Destrave o <span class="text-teal-600">Potencial de Vendas</span> da Sua Empresa.</h2>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8">Cansado de ver seu negócio estagnado? A F3K Mídia oferece soluções de gestão empresarial que são verdadeiros mapas para a prosperidade do seu negócio.</p>
+                <a href="#contact" class="bg-teal-600 text-white font-bold py-4 px-8 rounded-full text-lg hover:bg-teal-700 transition-transform hover:scale-105 inline-block">Agende uma Consulta Gratuita</a>
+            </div>
+        </section>
+
+        <section id="introduction" class="py-16 md:py-24">
+            <div class="container mx-auto px-6 text-center">
+                 <h3 class="text-3xl md:text-4xl font-bold mb-4">Nós não somos apenas uma consultoria.</h3>
+                 <p class="text-lg text-gray-700 max-w-4xl mx-auto">Somos o seu catalisador de sucesso. Chegamos para revolucionar a forma como você gerencia e vende. Sabemos que o ritmo do empreendedorismo exige mais do que dedicação: exige inteligência estratégica, otimização constante e a capacidade de transformar cada desafio em uma nova oportunidade de venda. É exatamente aí que a F3K Mídia faz a diferença.</p>
+            </div>
+        </section>
+
+
+        <section id="services" class="py-16 md:py-24 bg-slate-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl md:text-4xl font-bold">O que a F3K Mídia pode fazer pelo seu futuro?</h3>
+                    <p class="text-lg text-gray-600 mt-2">Explore nossas soluções e descubra como podemos impulsionar seu negócio.</p>
+                </div>
+                <div id="accordion-container" class="max-w-3xl mx-auto space-y-4">
+                    <!-- Accordion items will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+
+        <section id="growth" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h3 class="text-3xl md:text-4xl font-bold">Visualize o Crescimento</h3>
+                    <p class="text-lg text-gray-600 mt-2">Nossa metodologia foca em resultados tangíveis. Veja uma simulação do impacto que podemos gerar.</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <div class="chart-container">
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                    <div class="text-center mt-6">
+                         <button id="simulateGrowthBtn" class="bg-teal-600 text-white font-bold py-3 px-6 rounded-full hover:bg-teal-700 transition-colors">Simular Crescimento com a F3K Mídia</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="process" class="py-16 md:py-24 bg-slate-100">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h3 class="text-3xl md:text-4xl font-bold">Nossa Abordagem Estratégica</h3>
+                    <p class="text-lg text-gray-600 mt-2">Seguimos um processo claro para garantir o seu sucesso.</p>
+                </div>
+                <div class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-4">
+                    <div class="flex flex-col items-center text-center max-w-xs">
+                        <div class="bg-white rounded-full h-20 w-20 flex items-center justify-center shadow-md mb-4"><span class="text-3xl font-bold text-teal-600">1</span></div>
+                        <h4 class="font-bold text-xl mb-2">Diagnóstico</h4>
+                        <p class="text-gray-600">Mergulhamos no coração do seu negócio para entender seus desafios e oportunidades.</p>
+                    </div>
+                    <div class="h-12 w-1 md:h-1 md:w-24 bg-slate-300"></div>
+                    <div class="flex flex-col items-center text-center max-w-xs">
+                        <div class="bg-white rounded-full h-20 w-20 flex items-center justify-center shadow-md mb-4"><span class="text-3xl font-bold text-teal-600">2</span></div>
+                        <h4 class="font-bold text-xl mb-2">Estratégia</h4>
+                        <p class="text-gray-600">Desenvolvemos um plano de voo personalizado, sua bússola para o sucesso.</p>
+                    </div>
+                    <div class="h-12 w-1 md:h-1 md:w-24 bg-slate-300"></div>
+                     <div class="flex flex-col items-center text-center max-w-xs">
+                        <div class="bg-white rounded-full h-20 w-20 flex items-center justify-center shadow-md mb-4"><span class="text-3xl font-bold text-teal-600">3</span></div>
+                        <h4 class="font-bold text-xl mb-2">Implementação</h4>
+                        <p class="text-gray-600">Colocamos o plano em ação com táticas de vendas e otimização de processos.</p>
+                    </div>
+                     <div class="h-12 w-1 md:h-1 md:w-24 bg-slate-300"></div>
+                    <div class="flex flex-col items-center text-center max-w-xs">
+                        <div class="bg-white rounded-full h-20 w-20 flex items-center justify-center shadow-md mb-4"><span class="text-3xl font-bold text-teal-600">4</span></div>
+                        <h4 class="font-bold text-xl mb-2">Crescimento</h4>
+                        <p class="text-gray-600">Monitoramos as métricas e ajustamos a rota para garantir um crescimento contínuo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="py-16 md:py-24 bg-gray-900 text-white">
+            <div class="container mx-auto px-6 text-center">
+                <h3 class="text-3xl md:text-4xl font-bold">Sua empresa está pronta para o próximo grande salto?</h3>
+                <p class="text-lg text-gray-300 mt-4 max-w-2xl mx-auto">Fale com a F3K Mídia hoje mesmo! Agende sua consulta gratuita e descubra o plano de ação que vai desbloquear o verdadeiro poder de vendas da sua empresa.</p>
+                <div class="mt-8 bg-white text-gray-800 rounded-lg p-8 max-w-lg mx-auto shadow-2xl">
+                    <p class="font-bold text-2xl mb-4">Entre em Contato</p>
+                    <p class="mb-2"><strong>📞 Telefone/WhatsApp:</strong> [Seu número de telefone/WhatsApp aqui]</p>
+                    <p class="mb-2"><strong>📧 E-mail:</strong> [Seu e-mail aqui]</p>
+                    <p class="mb-4"><strong>🌐 Website:</strong> [Seu website aqui]</p>
+                    <div class="flex justify-center space-x-4">
+                        <a href="#" class="text-gray-600 hover:text-teal-700">Instagram</a>
+                        <a href="#" class="text-gray-600 hover:text-teal-700">Facebook</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-800 text-white py-6">
+        <div class="container mx-auto px-6 text-center text-gray-400">
+            <p>&copy; 2025 F3K Mídia. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const accordionData = [
+        {
+            icon: '📈',
+            title: 'Disparo nas Vendas',
+            content: 'Utilizamos metodologias testadas e aprovadas para criar um crescimento de vendas sem precedentes. Analisamos seu funil, otimizamos a conversão e implementamos táticas focadas em resultados rápidos e sustentáveis.'
+        },
+        {
+            icon: '📊',
+            title: 'Engrenagem Perfeita',
+            content: 'Transformamos processos complexos e ineficientes em operações fluidas e altamente produtivas. Mapeamos seus fluxos de trabalho para eliminar gargalos, reduzir custos e aumentar a eficiência geral da sua equipe.'
+        },
+        {
+            icon: '🎯',
+            title: 'Bússola Estratégica',
+            content: 'Criamos um plano de voo personalizado que guiará sua empresa diretamente ao sucesso. Definimos metas claras, KPIs relevantes e um roteiro estratégico para garantir que todas as ações estejam alinhadas com seus maiores objetivos.'
+        },
+        {
+            icon: '💡',
+            title: 'Decisões Poderosas',
+            content: 'Implementamos uma cultura orientada a dados, utilizando suas informações como a principal ferramenta para escolhas assertivas e inteligentes. Chega de achismos, é hora de decidir com base em fatos e métricas concretas.'
+        },
+        {
+            icon: '🤝',
+            title: 'Parceria Genuína',
+            content: 'Oferecemos mais do que um serviço; criamos uma aliança sólida em sua jornada rumo à vitória. Estamos ao seu lado em cada etapa, oferecendo suporte contínuo e agindo como uma extensão da sua equipe.'
+        }
+    ];
+
+    const accordionContainer = document.getElementById('accordion-container');
+    accordionData.forEach((item, index) => {
+        const accordionItem = document.createElement('div');
+        accordionItem.className = 'bg-white rounded-lg shadow-md';
+        accordionItem.innerHTML = `
+            <button class="accordion-header w-full flex justify-between items-center text-left p-5 font-semibold text-lg focus:outline-none">
+                <span class="flex items-center">
+                    <span class="text-2xl mr-4">${item.icon}</span>
+                    <span>${item.title}</span>
+                </span>
+                <span class="accordion-icon transition-transform transform">+</span>
+            </button>
+            <div class="accordion-content">
+                <p class="p-5 pt-0 text-gray-600">${item.content}</p>
+            </div>
+        `;
+        accordionContainer.appendChild(accordionItem);
+    });
+
+    const headers = document.querySelectorAll('.accordion-header');
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.accordion-icon');
+            
+            const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+            document.querySelectorAll('.accordion-content').forEach(c => c.style.maxHeight = '0px');
+            document.querySelectorAll('.accordion-icon').forEach(i => {
+                i.textContent = '+';
+                i.classList.remove('rotate-45');
+            });
+            
+            if (!isOpen) {
+                content.style.maxHeight = content.scrollHeight + 'px';
+                icon.textContent = '+';
+                icon.classList.add('rotate-45');
+            }
+        });
+    });
+
+    const ctx = document.getElementById('growthChart').getContext('2d');
+    const initialData = {
+        labels: ['Início', 'Mês 2', 'Mês 4', 'Mês 6', 'Mês 8', 'Mês 10', 'Mês 12'],
+        datasets: [{
+            label: 'Crescimento Estagnado',
+            data: [100, 102, 98, 105, 103, 106, 104],
+            borderColor: 'rgb(156, 163, 175)',
+            backgroundColor: 'rgba(156, 163, 175, 0.1)',
+            fill: true,
+            tension: 0.1
+        }]
+    };
+
+    const growthData = {
+        label: 'Crescimento com F3K Mídia',
+        data: [100, 120, 150, 190, 250, 320, 410],
+        borderColor: 'rgb(13, 148, 136)',
+        backgroundColor: 'rgba(13, 148, 136, 0.2)',
+        fill: true,
+        tension: 0.4
+    };
+
+    const growthChart = new Chart(ctx, {
+        type: 'line',
+        data: initialData,
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: false,
+                    title: { display: true, text: 'Performance de Vendas (Índice)' }
+                }
+            },
+            plugins: {
+                legend: { position: 'top' },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let label = context.dataset.label || '';
+                            if (label) {
+                                label += ': ';
+                            }
+                            if (context.parsed.y !== null) {
+                                label += new Intl.NumberFormat('pt-BR').format(context.parsed.y);
+                            }
+                            return label;
+                        }
+                    }
+                }
+            }
+        }
+    });
+    
+    document.getElementById('simulateGrowthBtn').addEventListener('click', () => {
+        const existingGrowthDataset = growthChart.data.datasets.find(ds => ds.label === growthData.label);
+        
+        if (!existingGrowthDataset) {
+            growthChart.data.datasets.push(growthData);
+            growthChart.update();
+        }
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            const href = this.getAttribute('href');
+            if (href.length > 1) {
+                e.preventDefault();
+                document.querySelector(href).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+});
+</script>
+
+</body>
+</html>
